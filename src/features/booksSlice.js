@@ -3,6 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 export const booksSlice = createSlice({
   name: "books",
   initialState: {
+    category: "all",
+    sort: "new",
     data: [],
   },
   reducers: {
@@ -11,13 +13,17 @@ export const booksSlice = createSlice({
     },
     clearSearch: (state) => {
       state.data = [];
+      state.category = "all";
+      state.sort = "new";
     },
-    filterCards: (state, action) => {
-      state.data = action.payload;
+    getCategory: (state, action) => {
+      state.category = action.payload;
+    },
+    getSort: (state, action) => {
+      state.sort = action.payload;
     },
   },
 });
 
-export const { search, clearSearch, filterCards } = booksSlice.actions;
-
+export const { search, clearSearch, getCategory, getSort } = booksSlice.actions;
 export default booksSlice.reducer;

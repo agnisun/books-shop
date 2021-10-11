@@ -10,14 +10,19 @@ import {
 } from "@chakra-ui/react";
 import searchMagnifier from "../../img/search.png";
 import noImage from "../../img/no-image.png";
-import { useDispatch } from "react-redux";
-import { search, clearSearch, filterCards } from "../../features/booksSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  search,
+  clearSearch,
+  getCategory,
+  getSort,
+} from "../../features/booksSlice";
 
 export const SearchField = () => {
   const [query, setQuery] = useState("");
-  const [selectCategory, setSelectCategory] = useState("all");
-  const [selectSort, setSelectSort] = useState("new");
   const dispatch = useDispatch();
+  const category = useSelector((state) => state.books.category);
+  const sort = useSelector((state) => state.books.sort);
 
   const handleBook = (e) => {
     setQuery(e.target.value);
@@ -28,11 +33,11 @@ export const SearchField = () => {
   };
 
   const handleCategory = (e) => {
-    setSelectCategory(e.target.value);
+    dispatch(getCategory(e.target.value));
   };
 
   const handleSort = (e) => {
-    setSelectSort(e.target.value);
+    dispatch(getSort(e.target.value));
   };
 
   const handleSearch = () => {
@@ -46,20 +51,20 @@ export const SearchField = () => {
         .then((data) => dispatch(search(cleanData(data.items))))
         .catch((err) => console.log(err));
     }
+  };
 
-    const cleanData = (cards) => {
-      return cards.map((card) => {
-        if (card.volumeInfo.hasOwnProperty("publishedDate") === false) {
-          card.volumeInfo.publishedDate = "0000";
-        } else if (card.volumeInfo.hasOwnProperty("imageLinks") === false) {
-          card.volumeInfo.imageLinks = {
-            thumbnail: noImage,
-          };
-        }
+  const cleanData = (cards) => {
+    return cards.map((card) => {
+      if (card.volumeInfo.hasOwnProperty("publishedDate") === false) {
+        card.volumeInfo.publishedDate = "0000";
+      } else if (card.volumeInfo.hasOwnProperty("imageLinks") === false) {
+        card.volumeInfo.imageLinks = {
+          thumbnail: noImage,
+        };
+      }
 
-        return card;
-      });
-    };
+      return card;
+    });
   };
 
   return (
@@ -93,7 +98,7 @@ export const SearchField = () => {
           <label style={{ width: "100%", marginRight: "30px" }}>
             Categories:
             <Select
-              value={selectCategory}
+              value={category}
               bg={"#fff"}
               color={"#000"}
               onChange={(e) => handleCategory(e)}
@@ -112,7 +117,7 @@ export const SearchField = () => {
           <label style={{ width: "100%" }}>
             Sorting by:
             <Select
-              value={selectSort}
+              value={sort}
               bg={"#fff"}
               color={"#000"}
               onChange={(e) => handleSort(e)}
