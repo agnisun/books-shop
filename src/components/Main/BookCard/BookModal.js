@@ -34,7 +34,7 @@ export const BookModal = ({
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent mt={"1.75rem"}>
+      <ModalContent mt={"1.75rem"} bgColor={"#fff"}>
         <ModalHeader py={"40px"}>{title}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  Box,
   Button,
   Flex,
   Image,
@@ -14,8 +15,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   search,
   clearSearch,
-  getCategory,
-  getSort,
+  setCategory,
+  setSort,
 } from "../../features/booksSlice";
 
 export const SearchField = () => {
@@ -33,11 +34,11 @@ export const SearchField = () => {
   };
 
   const handleCategory = (e) => {
-    dispatch(getCategory(e.target.value));
+    dispatch(setCategory(e.target.value));
   };
 
   const handleSort = (e) => {
-    dispatch(getSort(e.target.value));
+    dispatch(setSort(e.target.value));
   };
 
   const handleSearch = () => {
@@ -95,7 +96,7 @@ export const SearchField = () => {
       </InputGroup>
       <Flex w={"100%"}>
         <Flex flex={"1 1 auto"}>
-          <label style={{ width: "100%", marginRight: "30px" }}>
+          <Box as={"label"} width={"100%"} marginRight={"30px"}>
             Categories:
             <Select
               value={category}
@@ -103,18 +104,32 @@ export const SearchField = () => {
               color={"#000"}
               onChange={(e) => handleCategory(e)}
             >
-              <option value="all">all</option>
-              <option value="art">art</option>
-              <option value="biography">biography</option>
-              <option value="computers">computers</option>
-              <option value="history">history</option>
-              <option value="medical">medical</option>
-              <option value="poetry">poetry</option>
+              <option style={{ background: "#fff" }} value="all">
+                all
+              </option>
+              <option style={{ background: "#fff" }} value="art">
+                art
+              </option>
+              <option style={{ background: "#fff" }} value="biography">
+                biography
+              </option>
+              <option style={{ background: "#fff" }} value="computers">
+                computers
+              </option>
+              <option style={{ background: "#fff" }} value="history">
+                history
+              </option>
+              <option style={{ background: "#fff" }} value="medical">
+                medical
+              </option>
+              <option style={{ background: "#fff" }} value="poetry">
+                poetry
+              </option>
             </Select>
-          </label>
+          </Box>
         </Flex>
         <Flex flex={"1 1 auto"}>
-          <label style={{ width: "100%" }}>
+          <Box as={"label"} width={"100%"}>
             Sorting by:
             <Select
               value={sort}
@@ -122,10 +137,14 @@ export const SearchField = () => {
               color={"#000"}
               onChange={(e) => handleSort(e)}
             >
-              <option value="new">newest</option>
-              <option value="old">oldest</option>
+              <option style={{ background: "#fff" }} value="newest">
+                newest
+              </option>
+              <option style={{ background: "#fff" }} value="oldest">
+                oldest
+              </option>
             </Select>
-          </label>
+          </Box>
         </Flex>
       </Flex>
     </Flex>

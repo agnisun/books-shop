@@ -4,7 +4,7 @@ export const booksSlice = createSlice({
   name: "books",
   initialState: {
     category: "all",
-    sort: "new",
+    sort: "newest",
     data: [],
   },
   reducers: {
@@ -14,16 +14,16 @@ export const booksSlice = createSlice({
     clearSearch: (state) => {
       state.data = [];
       state.category = "all";
-      state.sort = "new";
+      state.sort = "newest";
     },
-    getCategory: (state, action) => {
+    setCategory: (state, action) => {
       state.category = action.payload;
     },
-    getSort: (state, action) => {
+    setSort: (state, action) => {
       state.sort = action.payload;
     },
   },
 });
 
-export const { search, clearSearch, getCategory, getSort } = booksSlice.actions;
+export const { search, clearSearch, setCategory, setSort } = booksSlice.actions;
 export default booksSlice.reducer;

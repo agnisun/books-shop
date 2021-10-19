@@ -8,6 +8,7 @@ export const theme = extendTheme({
         fontSize: "18px",
         color: "#000",
         lineHeight: "1.5",
+        backgroundColor: "#fff",
       },
       option: {
         color: "#000",
